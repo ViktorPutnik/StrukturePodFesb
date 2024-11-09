@@ -130,6 +130,7 @@
     <ClCompile Include="cetvrti.c" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="drugipol.txt" />
     <Text Include="zdtk4.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

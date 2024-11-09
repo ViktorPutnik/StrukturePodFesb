@@ -1,7 +1,11 @@
 ﻿  cetvrti.c
-C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(28,19): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
-C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(28,19): warning C4024: 'GetFromFile': different types for formal and actual parameter 2
-C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(83): warning C4716: 'InsertAfter': must return a value
-C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(102): warning C4716: 'GetFromFile': must return a value
-C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(119): warning C4716: 'DeleteAfter': must return a value
+C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(46,19): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
+C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(46,19): warning C4024: 'GetFromFile': different types for formal and actual parameter 2
+C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(48,20): warning C4047: 'function': 'char *' differs in levels of indirection from 'char **'
+C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(48,20): warning C4024: 'GetFromFile': different types for formal and actual parameter 2
+C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(112): warning C4716: 'InsertAfter': must return a value
+C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(169): warning C4716: 'DeleteAfter': must return a value
+C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(152): warning C4716: 'GetFromFile': must return a value
+C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(192): warning C4716: 'ZbrajanjePolinoma': must return a value
+C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\cetvrtiZadatakSaStruktura\cetvrti.c(228): warning C4716: 'MnozenjePolinoma': must return a value
   cetvrtiZadatakSaStruktura.vcxproj -> C:\Users\Viktor\OneDrive\Radna površina\fesbStrukture\Strukturezafesb\cetvrtiZadatakSaStruktura\x64\Debug\cetvrtiZadatakSaStruktura.exe
