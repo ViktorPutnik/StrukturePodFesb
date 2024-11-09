@@ -98,7 +98,7 @@ int GetFromFile(char* line,char* token,position head)
 			
 		}
 	}
-
+	fclose(fp);
 }
 int print_list(position first)
 {
