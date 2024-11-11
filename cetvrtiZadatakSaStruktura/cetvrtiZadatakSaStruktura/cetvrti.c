@@ -6,7 +6,7 @@ typedef struct _element* position;
 
 typedef struct _element
 {
-	int koef;
+	int koef,exp;
 	position next;
 
 } element;
@@ -14,54 +14,59 @@ typedef struct _element
 int InsertSortedToList(position head, position NextEl);
 int InsertAfter(position head, position NextEl);
 int DeleteAfter(position Element);
-position InsertNew(int koef);
-int GetFromFile(char* line,char*token,position head,int file);
+position InsertNew(int koef,int exp);
+int GetFromFile(position head,FILE* fp);
 int print_list(position first);
 int ZbrajanjePolinoma(position head1, position head2,position zbroj);
-int MnozenjePolinoma(position head1, position head2,position produkt);
-int DuljinaPolinoma(position head);
+int UmnozakPolinoma(position head1, position head2, position headMultiply);
+int lenghtOfList(position ptr);
 int main()
 {
 	element head = {
 		.koef=0,
+		.exp=0,
 		.next = NULL
 	};
 	element head1 =
 	{
 		.koef = 0,
+		.exp = 0,
 		.next = NULL
 	};
 	element Zbroj =
 	{
 		.koef = 0,
+		.exp = 0,
 		.next = NULL
 	};
 	element Produkt =
 	{
 		.koef = 0,
+		.exp = 0,
 		.next = NULL
 	};
-	char line[256];
-	char* token;
-	GetFromFile(line,&token,&head,1);
+	FILE* fp = fopen("zdtk4.txt", "r");
+	FILE* fp1 = fopen("drugipol.txt", "r");
+
+
+	GetFromFile(&head,fp);
+	GetFromFile(&head1, fp1);
 	print_list(&head);
-	GetFromFile(line, &token, &head1,2);
 	printf("\n");
 	print_list(&head1);
 	ZbrajanjePolinoma(&head, &head1, &Zbroj);
 	printf("\n");
 	print_list(&Zbroj);
-	MnozenjePolinoma(&head, &head1, &Produkt);
+	UmnozakPolinoma(&head, &head1, &Produkt);
 	printf("\n");
 	print_list(&Produkt);
-
 	//mnozenje i zbrajanje se sprema obrnuto nemam volje fixovat sad al da radi
 	return 0;
 }
 
 
 
-position InsertNew(int koef)
+position InsertNew(int koef,int exp)
 {
 	position NewEl=(position)malloc(sizeof(element));
 	if (!NewEl)
@@ -69,6 +74,7 @@ position InsertNew(int koef)
 		printf("failed to find memory for new person\n");
 	}
 	NewEl->koef = koef;
+	NewEl->exp = exp;
 	NewEl->next = NULL;
 	return NewEl;
 }
@@ -82,24 +88,28 @@ int InsertSortedToList(position head, position NextEl)
 	{
 		printf("failed to allocate memory \n");
 	}
-	while (temp->next!=NULL && (temp->next->koef < NextEl->koef))
+	while (temp->next!=NULL && (temp->next->exp < NextEl->exp))
 	{
 		temp = temp->next;
 	}
 	
-	if (temp->next == NULL || temp->next->koef > NextEl->koef)
+	if (temp->next == NULL || temp->next->exp > NextEl->exp)
 	{
 		InsertAfter(temp, NextEl);
 	}
-	else
+	else if(temp->next->exp==NextEl->exp)
 	{
-		int SumKoef = 0;
-		SumKoef = temp->next->koef - NextEl->koef;
-		if (SumKoef == 0)
+		int Sumexp = 0;
+		Sumexp = temp->next->exp + NextEl->exp;
+		if (Sumexp == 0)
 		{
 			DeleteAfter(temp);
 		}free(NextEl);
 		
+	}
+	else
+	{
+		InsertAfter(temp, NextEl);
 	}
 
 	return EXIT_SUCCESS;
@@ -112,43 +122,32 @@ int InsertAfter(position temp ,position NextEl)
 }
 
 
-int GetFromFile(char* line,char* token,position head,int file)
+int GetFromFile(position head,FILE* fp)
 {
-	int koef;
-	FILE* fp = fopen("zdtk4.txt", "r");
-	FILE* fp1 = fopen("drugipol.txt", "r");
-	switch (file)
+	if (!fp)
 	{
-	case 1:
-		while (fgets(line, sizeof(line), fp))
-		{
-			token = strtok(line, " ");
-			while (token != NULL)
-			{
-				koef = atoi(token);
-				InsertSortedToList(head, InsertNew(koef));
-				token = strtok(NULL, " ");
-
-			}
-		}
-		koef = 0;
-		fclose(fp);
-		break;
-	case 2:
-		while (fgets(line, sizeof(line), fp1))
-		{
-			token = strtok(line, " ");
-			while (token != NULL)
-			{
-				koef = atoi(token);
-				InsertSortedToList(head, InsertNew(koef));
-				token = strtok(NULL, " ");
-
-			}
-		}
-		fclose(fp1);
-		break;
+		printf("mistake loading the document\n");
+		return 1;
 	}
+	char line[256];
+	while (fgets(line, sizeof(line), fp))
+	{
+		int koef;
+		int exp;
+		int movingbyte;
+		int buf_number = 0;
+		
+	
+		while (sscanf(line+buf_number, "%d %d%n", &koef, &exp, &movingbyte) == 2)
+		{
+			InsertSortedToList(head, InsertNew(koef, exp));
+			buf_number += movingbyte;
+		}
+	
+		fclose(fp);
+		return EXIT_SUCCESS;
+	}
+	
 }
 int print_list(position first)
 {
@@ -156,7 +155,7 @@ int print_list(position first)
 
 	while (temp)
 	{
-		printf("number: %d \n", temp->koef);
+		printf("number:koef %d exp %d \n", temp->koef,temp->exp);
 		temp = temp->next;
 	}
 
@@ -165,64 +164,88 @@ int print_list(position first)
 
 int DeleteAfter(position Element)
 {
-	Element->next = NULL;
+	position temp = Element->next;
+	Element->next = Element->next->next;
+	free(temp);
 }
 //funk za zbrajanja
 int ZbrajanjePolinoma(position head1, position head2,position zbroj)
 {
-	position temp1 = head1;
-	position temp2 = head2;
-	
-	int lenght;
-	
-	lenght = DuljinaPolinoma(head1) > DuljinaPolinoma(head2) ? DuljinaPolinoma(head1) : DuljinaPolinoma(head2);
-	while (lenght != 0)
-	{
-		if (temp1->next || temp2->next)
-		{
-			position New = (position)malloc(sizeof(element));
-			New->koef = temp1->next->koef + temp2->next->koef;
-			New->next = zbroj->next;
-			zbroj->next = New;
-			temp1 = temp1->next;
-			temp2 = temp2->next;
+	while (head1 != NULL && head2 != NULL) {
+		if (head1->exp == head2->exp) {
+			int sum = head1->koef + head2->koef;
+			if (sum != 0) {
+				InsertSortedToList(zbroj, InsertNew(sum, head1->exp));
+				head1 = head1->next;
+				head2 = head2->next;
+				break;
+			}
 		}
-		lenght--;
+		else if (head1->exp > head2->exp) {
+			InsertSortedToList(zbroj, InsertNew(head2->koef, head2->exp));
+			head2 = head2->next;
+		}
+		else if (head1->exp < head2->exp) {
+			InsertSortedToList(zbroj, InsertNew(head1->koef, head1->exp));
+			head1 = head1->next;
+		}
+
+
+
+		while (head1 != NULL) {
+			InsertSortedToList(zbroj, InsertNew(head1->koef, head1->exp));
+			head1 = head1->next;
+		}
+		while (head2 != NULL)
+		{
+			InsertSortedToList(zbroj, InsertNew(head2->koef, head2->exp));
+			head2 = head2->next;
+		}
 	}
+	return 0;
+	
 }
 
-int DuljinaPolinoma(position head)
-{
-	int count = 0;
-	position temp = head;
-	while (temp)
-	{
-		count++;
-		temp = temp->next;
+int lenghtOfList(position ptr) {
+	int len = 0;
+	while (ptr != NULL) {
+		len++;
+		ptr = ptr->next;
 	}
-	return count;
+	return len;
 }
-//funk za mnozenja
-int MnozenjePolinoma(position head1, position head2, position produkt)
-{
-	position temp1 = head1;
-	position temp2 = head2;
+int UmnozakPolinoma(position head1, position head2, position headMultiply) {
 
-	int lenght;
-
-	lenght = DuljinaPolinoma(head1) > DuljinaPolinoma(head2) ? DuljinaPolinoma(head1) : DuljinaPolinoma(head2);
-	while (lenght != 0)
-	{
-		if (temp1->next || temp2->next)
-		{
-			position New = (position)malloc(sizeof(element));
-			New->koef = temp1->next->koef * temp2->next->koef;
-			New->next = produkt->next;
-			produkt->next = New;
-			temp1 = temp1->next;
-			temp2 = temp2->next;
-		}
-		lenght--;
+	int maxLen = 0;
+	if (lenghtOfList(head1) >= lenghtOfList(head2)) {
+		maxLen = lenghtOfList(head1);
+	}
+	else {
+		maxLen = lenghtOfList(head2);
 	}
 
+	while (maxLen != 0) {
+		if (head1 == NULL) {
+			InsertSortedToList(headMultiply, InsertNew(head2->koef, head2->exp));
+			head2 = head2->next;
+			maxLen--;
+		}
+		else if (head2 == NULL) {
+			InsertSortedToList(headMultiply, InsertNew(head1->koef, head1->exp));
+			head1 = head1->next;
+			maxLen--;
+		}
+		else {
+			headMultiply->koef = head1->koef * head2->koef;
+			headMultiply->exp = head1->exp + head2->exp;
+			InsertSortedToList(headMultiply, InsertNew(headMultiply->koef, headMultiply->exp));
+			head1 = head1->next;
+			head2 = head2->next;
+			maxLen--;
+		}
+
+	}
+
+
+	return 0;
 }
