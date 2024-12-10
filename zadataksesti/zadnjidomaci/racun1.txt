@@ -1,0 +1,5 @@
+2024-12-01
+jabuka 10 15
+cimet 2 8
+sladoled 1 3
+jabuka 2 3.5

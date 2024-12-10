@@ -151,7 +151,7 @@ int GetFromFile(position head,FILE* fp)
 }
 int print_list(position first)
 {
-	position temp = first;
+	position temp = first->next;
 
 	while (temp)
 	{
