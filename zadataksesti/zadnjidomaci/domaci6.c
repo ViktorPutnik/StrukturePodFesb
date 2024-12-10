@@ -75,7 +75,7 @@ void ReadReceiptFromFile(receiptPos headRec) {
 		FILE* fp1 = fopen(fileName, "r");
 		if (fp1 == NULL) {
 			printf("Greska pri otvaranju datoteke 2.");
-			return;
+			continue;
 		}
 		fgets(receiptDate, 11, fp1);
 		receiptDate[strcspn(receiptDate, "\n")] = '\0';
@@ -85,20 +85,6 @@ void ReadReceiptFromFile(receiptPos headRec) {
 	}
 
 
-	while (!feof(fp)) {
-		if (fgets(fileName, sizeof(fileName), fp) != NULL) {
-			FILE* fp1 = fopen(fileName, "r");
-			if (fp1 == NULL) {
-				printf("Greska pri otvaranju datoteke 2.");
-				return;
-			}
-			fgets(receiptDate, 11, fp1);
-			receiptDate[strcspn(receiptDate, "\n")] = '\0';
-			receiptPos newReceipt = CreateReceipt(receiptDate);
-			ReadArticleFromFile(&newReceipt->article, fp1);
-			SortReceiptByDate(headRec, newReceipt);
-		}
-	}
 	fclose(fp);
 	PrintReceipt(headRec);
 
@@ -267,7 +253,7 @@ void SpendOnItem(receiptPos headRec) {
 	printf("Upisite ime artikla:");
 	fgets(itemName, 20, stdin);
 	itemName[strcspn(itemName, "\n")] = '\0';
-	printf("Upisite razdoblje datumsko za prozivod:(YYYY-MM-DD) ");
+	printf("Upisite razdoblje datumsko za prozivod:(YYYY-MM-DD) \n");
 	char date1[12];
 	char date2[12];
 	double sum = 0;

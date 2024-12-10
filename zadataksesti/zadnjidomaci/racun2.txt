@@ -1,6 +1,6 @@
 2024-05-05
-banana 2 4.65
 odrezak 1 50
 banana 2 4.65
 stapici 1 2.3
 papir 7 10.2
+lopta 1 10

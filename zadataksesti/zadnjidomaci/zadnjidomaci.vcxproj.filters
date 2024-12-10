@@ -24,6 +24,7 @@
     <Text Include="racun1.txt" />
     <Text Include="racun2.txt" />
     <Text Include="racun3.txt" />
+    <Text Include="racun4.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">

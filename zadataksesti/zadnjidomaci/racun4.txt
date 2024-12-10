@@ -1,0 +1,5 @@
+2024-06-12
+jagoda 12 34.5
+naranca 5 12
+jabuka 5 5
+mango 3 12

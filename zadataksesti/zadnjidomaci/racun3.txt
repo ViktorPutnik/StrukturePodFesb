@@ -1,5 +1,6 @@
 2024-12-01
 jastuk 1 7.5
+jorgan 1 12.5
 jabuka 5 6.7
 cimet 12 18
 jabuka 2 3.5
