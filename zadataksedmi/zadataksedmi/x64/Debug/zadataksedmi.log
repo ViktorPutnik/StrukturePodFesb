@@ -1,0 +1,4 @@
+﻿  zadataksedmi.c
+C:\Users\Viktor\OneDrive\Radna površina\zadataksedmi\zadataksedmi\zadataksedmi.c(57,3): warning C4047: 'return': 'Pos' differs in levels of indirection from 'int'
+C:\Users\Viktor\OneDrive\Radna površina\zadataksedmi\zadataksedmi\zadataksedmi.c(110): warning C4716: 'PrintDirectoryElement': must return a value
+  zadataksedmi.vcxproj -> C:\Users\Viktor\OneDrive\Radna površina\zadataksedmi\x64\Debug\zadataksedmi.exe
